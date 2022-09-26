@@ -15,7 +15,7 @@ struct Point
     double y_;
     double z_;
 
-    Point (double x, double y, double z) : x_{x}, y_{y}, z_{z} {}
+    Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_{x}, y_{y}, z_{z} {}
 
     bool is_equal (const Point &other) const
     {
