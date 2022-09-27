@@ -5,9 +5,9 @@
 namespace Geom_Objects {
 
 class Line {
-    Point  point_;
     Vector drc_vec_;
     public:
+        Point  point_;
         Line(const Point& p1, const Point& p2): point_{p1}, drc_vec_ {p1.x_ - p2.x_, p1.y_ - p2.y_, p1.z_ - p2.z_}
         {
             #ifndef RELEASE
@@ -25,7 +25,15 @@ class Line {
         }
 
         const Vector& drc_vec() const {return drc_vec_;}
-        const Point& point() const {return point_;}
+        const Vector& drc_vec(const Vector& new_vec)
+        {
+            #ifndef RELEASE
+            if (new_vec.is_zero())
+                throw std::invalid_argument{"In method of change drc_vec(): null vector"};
+            #endif
+            drc_vec_ = new_vec;
+            return drc_vec_;
+        }
 };
 
 bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
@@ -37,7 +45,7 @@ bool are_coplanar(const Line& line1, const Line& line2, const Line& line3)
 
 double distance(const Line& line, const Point& pt)
 {
-    Vector dot_vec {pt, line.point()};
+    Vector dot_vec {pt, line.point_};
     double coef = scalar_product(dot_vec, line.drc_vec())/scalar_product(line.drc_vec(), line.drc_vec());
     return (dot_vec - coef * line.drc_vec()).module();
 }
@@ -47,7 +55,7 @@ double distance(const Point& pt, const Line& line) {return distance(line, pt);}
 double distance(const Line& line1, const Line& line2)
 {
     if (are_parallel(line1, line2))
-        return vector_product({line1.point(), line2.point()}, line1.drc_vec()).module()/line1.drc_vec().module();
+        return vector_product({line1.point_, line2.point_}, line1.drc_vec()).module()/line1.drc_vec().module();
     
     Vector dots_vec {line1.drc_vec(), line2.drc_vec()};
     return triple_product(dots_vec, line1.drc_vec(), line2.drc_vec()).module()/vector_product(line1.drc_vec(), line2.drc_vec()).module();
