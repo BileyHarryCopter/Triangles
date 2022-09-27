@@ -30,7 +30,7 @@ class Line {
 
 bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
 
-bool are_complanar(const Line& line1, const Line& line2, const Line& line3)
+bool are_coplanar(const Line& line1, const Line& line2, const Line& line3)
 {
     return are_coplanar(line1.drc_vec(), line2.drc_vec(), line3.drc_vec());
 }
