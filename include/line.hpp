@@ -19,13 +19,13 @@ class Line {
         Line(const Point& p, const Vector& vec): point_ {p}, drc_vec_ {vec}
         {
             #ifndef RELEASE
-            if (is_equal(vec.module(), 0))
+            if (vec.is_zero())
                 throw std::invalid_argument{"In constructor of Line(Point, Vector): null vector"};
             #endif
         }
 
-        Vector drc_vec() const {return drc_vec_;}
-        Point  point () const {return point_;}
+        const Vector& drc_vec() const {return drc_vec_;}
+        const Point& point() const {return point_;}
 };
 
 bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
