@@ -105,7 +105,7 @@ bool are_collinear (const Vector &first, const Vector &second)
     return vector_product (first, second).is_zero ();
 }
 
-bool are_complanar (const Vector &first, const Vector &second, const Vector &third)
+bool are_coplanar (const Vector &first, const Vector &second, const Vector &third)
 {
     return Comparison::are_equal (triple_product (first, second, third), 0.0);
 }
