@@ -27,11 +27,11 @@ class Line {
         Point  point () const {return point_;}
 };
 
-bool are_paral(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
+bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
 
 bool are_complanar(const Line& line1, const Line& line2, const Line& line3)
 {
-    return are_complanar(line1.drc_vec(), line2.drc_vec(), line3.drc_vec());
+    return are_coplanar(line1.drc_vec(), line2.drc_vec(), line3.drc_vec());
 }
 
 double distance(const Line& line, const Point& pt)
@@ -45,7 +45,7 @@ double distance(const Point& pt, const Line& line) {return distance(line, pt);}
 
 double distance(const Line& line1, const Line& line2)
 {
-    if (are_paral(line1, line2))
+    if (are_parallel(line1, line2))
         return vector_product({line1.point(), line2.point()}, line1.drc_vec()).module()/line1.drc_vec().module();
     
     Vector dots_vec {line1.drc_vec(), line2.drc_vec()};
