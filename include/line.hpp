@@ -37,11 +37,6 @@ class Line {
         }
 };
 
-bool are_equal(const Line& line1, const Line& line2)
-{
-    return are_equal(line1.point_, line2.point_) && are_equal(line1.drc_vec(), line2.drc_vec());
-}
-
 bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
 
 bool are_coplanar(const Line& line1, const Line& line2, const Line& line3)
@@ -71,5 +66,10 @@ bool are_intersect(const Line& line1, const Line& line2) {return Comparison::are
 
 bool is_belong(const Point& pt, const Line& line) {return Comparison::are_equal(distance(pt, line), 0);}
 bool is_belong(const Line& line, const Point& pt) {return is_belong(pt, line);}
+
+bool are_equal(const Line& line1, const Line& line2)
+{
+    return are_collinear(line1.drc_vec(), line2.drc_vec) && is_belong(line1.point_, line2);
+}
 
 }
