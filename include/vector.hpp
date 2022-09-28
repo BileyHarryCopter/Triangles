@@ -1,6 +1,8 @@
 #ifndef INCLUDE_VECTOR_HPP
 #define INCLUDE_VECTOR_HPP
 
+#include <cmath> // for std::sqrt
+
 #include "point.hpp"
 
 namespace Geom_Objects
