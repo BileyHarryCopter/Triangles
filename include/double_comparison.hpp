@@ -1,9 +1,6 @@
 #ifndef INCLUDE_DOUBLE_COMPARISON_HPP
 #define INCLUDE_DOUBLE_COMPARISON_HPP
 
-#include <algorithm>    // for std::max
-#include <cmath>        // for std::abs
-
 namespace Comparison
 {
 

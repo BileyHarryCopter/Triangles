@@ -1,4 +1,5 @@
-#include "double_comparison.hpp"
+#include <algorithm>    // for std::max
+#include <cmath>        // for std::abs
 
 namespace Comparison
 {
