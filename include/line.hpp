@@ -1,6 +1,7 @@
 #pragma once
-#include <point.hpp>
-#include <vector.hpp>
+#include "double_comprasion.hpp"
+#include "point.hpp"
+#include "vector.hpp"
 
 namespace Geom_Objects {
 
