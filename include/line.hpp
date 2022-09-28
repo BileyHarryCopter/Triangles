@@ -37,6 +37,11 @@ class Line {
         }
 };
 
+bool are_equal(const Line& line1, const Line& line2)
+{
+    return are_equal(line1.point_, line2.point_) && are_equal(line1.drc_vec(), line2.drc_vec());
+}
+
 bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
 
 bool are_coplanar(const Line& line1, const Line& line2, const Line& line3)
