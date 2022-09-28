@@ -69,7 +69,7 @@ bool is_belong(const Line& line, const Point& pt) {return is_belong(pt, line);}
 
 bool are_equal(const Line& line1, const Line& line2)
 {
-    return are_collinear(line1.drc_vec(), line2.drc_vec) && is_belong(line1.point_, line2);
+    return are_collinear(line1.drc_vec(), line2.drc_vec()) && is_belong(line1.point_, line2);
 }
 
 }
