@@ -1,12 +1,12 @@
-set(SRC_LIST ./test_vector.cpp)
+aux_source_directory(./basic_tests SRC_LIST)
 
-add_executable(test_vector ${SRC_LIST})
+add_executable(test_all ${SRC_LIST})
 
-target_link_libraries(test_vector
+target_link_libraries(test_all
                       PRIVATE ${GTEST_LIBRARIES}
-                      PRIVATE vector)
+                      PRIVATE basic_classes)
 
-target_include_directories(test_vector
+target_include_directories(test_all
                            PRIVATE ../include)
 
-gtest_discover_tests(test_vector)
+gtest_discover_tests(test_all)
