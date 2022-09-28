@@ -1,5 +1,5 @@
 #pragma once
-#include "double_comprasion.hpp"
+#include "double_comparison.hpp"
 #include "point.hpp"
 #include "vector.hpp"
 
@@ -62,9 +62,9 @@ double distance(const Line& line1, const Line& line2)
     return triple_product(dots_vec, line1.drc_vec(), line2.drc_vec()).module()/vector_product(line1.drc_vec(), line2.drc_vec()).module();
 }
 
-bool are_intersect(const Line& line1, const Line& line2) {return are_equal(distance(line1, line2), 0);}
+bool are_intersect(const Line& line1, const Line& line2) {return Comparison::are_equal(distance(line1, line2), 0);}
 
-bool is_belong(const Point& pt, const Line& line) {return are_equal(distance(pt, line), 0);}
+bool is_belong(const Point& pt, const Line& line) {return Comparison::are_equal(distance(pt, line), 0);}
 bool is_belong(const Line& line, const Point& pt) {return is_belong(pt, line);}
 
 }
