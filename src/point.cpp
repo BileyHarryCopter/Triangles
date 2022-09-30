@@ -5,16 +5,9 @@
 namespace Geom_Objects
 {
 
-bool are_equal (const Point &first, const Point &second)
-{
-    return (Comparison::are_equal (first.x_, second.x_) &&
-            Comparison::are_equal (first.y_, second.y_) &&
-            Comparison::are_equal (first.z_, second.z_));
-}
-
 double distance (const Point &first, const Point &second)
 {
-    if (are_equal (first, second))
+    if (first == second)
         return 0.0;
     else
     {
