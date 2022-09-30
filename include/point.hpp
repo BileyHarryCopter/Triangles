@@ -10,9 +10,7 @@ namespace Geom_Objects
 
 struct Point
 {
-    double x_;
-    double y_;
-    double z_;
+    double x_, y_, z_;
 
     Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_{x}, y_{y}, z_{z} {}
 
