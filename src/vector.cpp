@@ -3,24 +3,6 @@
 namespace Geom_Objects
 {
 
-Vector operator+ (const Vector &lhs, const Vector &rhs)
-{
-    Vector sum = lhs;
-    return (sum += rhs);
-}
-
-Vector operator- (const Vector &lhs, const Vector &rhs)
-{
-    Vector diff = lhs;
-    return (diff -= rhs);
-}
-
-Vector operator* (const Vector &lhs, const double coeff)
-{
-    Vector product = lhs;
-    return (product *= coeff);
-}
-
 double scalar_product (const Vector &lhs, const Vector &rhs)
 {
     return lhs.x_ * rhs.x_ + lhs.y_ * rhs.y_ + lhs.z_ * rhs.z_;
@@ -38,13 +20,6 @@ double triple_product (const Vector &first, const Vector &second, const Vector &
     return first.x_ * (second.y_ * third.z_ - second.z_ * third.y_) -
            first.y_ * (second.x_ * third.z_ - second.z_ * third.x_) +
            first.z_ * (second.x_ * third.y_ - second.y_ * third.x_);
-}
-
-bool are_equal (const Vector &lhs, const Vector &rhs)
-{
-    return (Comparison::are_equal (lhs.x_, rhs.x_) &&
-            Comparison::are_equal (lhs.y_, rhs.y_) &&
-            Comparison::are_equal (lhs.z_, rhs.z_));
 }
 
 bool are_collinear (const Vector &first, const Vector &second)

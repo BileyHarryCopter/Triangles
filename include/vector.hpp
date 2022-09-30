@@ -19,6 +19,15 @@ struct Vector
     Vector (Point &first, Point &second)
            : x_{second.x_ - first.x_}, y_{second.y_ - first.y_}, z_{second.z_ - first.z_} {}
 
+    bool operator== (const Vector &other) const
+    {
+        return (Comparison::are_equal (x_, other.x_) &&
+                Comparison::are_equal (y_, other.y_) &&
+                Comparison::are_equal (z_, other.z_));
+    }
+
+    bool operator!= (const Vector &other) const { return !(*this == other); }
+
     Vector &operator+= (const Vector &rhs)
     {
         x_ += rhs.x_;
@@ -26,6 +35,12 @@ struct Vector
         z_ += rhs.z_;
 
         return *this;
+    }
+
+    Vector operator+ (const Vector &other)
+    {
+        Vector sum = *this;
+        return (sum += other);
     }
 
     Vector &operator-= (const Vector &rhs)
@@ -37,6 +52,12 @@ struct Vector
         return *this;
     }
 
+    Vector operator- (const Vector &other)
+    {
+        Vector diff = *this;
+        return (diff -= other);
+    }
+
     Vector &operator*= (const double coeff)
     {
         x_ *= coeff;
@@ -44,6 +65,12 @@ struct Vector
         z_ *= coeff;
 
         return *this;
+    }
+
+    Vector operator* (const double coeff)
+    {
+        Vector product = *this;
+        return (product *= coeff);
     }
 
     Vector operator- () const { return Vector{-x_, -y_, -z_}; }
@@ -58,15 +85,10 @@ struct Vector
     }
 };
 
-Vector operator+ (const Vector &lhs, const Vector &rhs);
-Vector operator- (const Vector &lhs, const Vector &rhs);
-Vector operator* (const Vector &lhs, const double coeff);
-
 double scalar_product (const Vector &lhs, const Vector &rhs);
 Vector vector_product (const Vector &lhs, const Vector &rhs);
 double triple_product (const Vector &first, const Vector &second, const Vector &third);
 
-bool are_equal (const Vector &lhs, const Vector &rhs);
 bool are_collinear (const Vector &first, const Vector &second);
 bool are_coplanar (const Vector &first, const Vector &second, const Vector &third);
 
