@@ -37,7 +37,7 @@ struct Vector
         return *this;
     }
 
-    Vector operator+ (const Vector &other)
+    Vector operator+ (const Vector &other) const
     {
         Vector sum = *this;
         return (sum += other);
@@ -52,7 +52,7 @@ struct Vector
         return *this;
     }
 
-    Vector operator- (const Vector &other)
+    Vector operator- (const Vector &other) const
     {
         Vector diff = *this;
         return (diff -= other);
@@ -67,7 +67,7 @@ struct Vector
         return *this;
     }
 
-    Vector operator* (const double coeff)
+    Vector operator* (const double coeff) const
     {
         Vector product = *this;
         return (product *= coeff);
