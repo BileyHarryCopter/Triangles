@@ -85,6 +85,8 @@ struct Vector
     }
 };
 
+inline Vector operator* (const double coeff, const Vector &vec) { return vec * coeff; }
+
 inline double scalar_product (const Vector &lhs, const Vector &rhs)
 {
     return lhs.x_ * rhs.x_ + lhs.y_ * rhs.y_ + lhs.z_ * rhs.z_;
