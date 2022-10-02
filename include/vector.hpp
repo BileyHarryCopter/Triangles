@@ -83,6 +83,11 @@ struct Vector
                 Comparison::are_equal (y_, 0.0) &&
                 Comparison::are_equal (z_, 0.0));
     }
+
+    void print () const
+    {
+        std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl;
+    }
 };
 
 inline Vector operator* (const double coeff, const Vector &vec) { return vec * coeff; }
@@ -95,7 +100,7 @@ inline double scalar_product (const Vector &lhs, const Vector &rhs)
 inline Vector vector_product (const Vector &lhs, const Vector &rhs)
 {
     return Vector { lhs.y_ * rhs.z_ - lhs.z_ * rhs.y_,
-                    lhs.x_ * rhs.z_ - lhs.z_ * rhs.x_,
+                    lhs.z_ * rhs.x_ - lhs.x_ * rhs.z_,
                     lhs.x_ * rhs.y_ - lhs.y_ * rhs.x_ };
 }
 
