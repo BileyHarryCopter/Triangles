@@ -41,8 +41,8 @@ double triple_product (const Vector &first, const Vector &second, const Vector &
 
 bool are_equal (const Vector &lhs, const Vector &rhs)
 {
-    return (Comparison::are_equal (lhs.x_, rhs.x_) && Comparison::are_equal (lhs.y_, rhs.y_) &&
-            Comparison::are_equal (lhs.z_, rhs.z_));
+    return (cmp::are_equal (lhs.x_, rhs.x_) && cmp::are_equal (lhs.y_, rhs.y_) &&
+            cmp::are_equal (lhs.z_, rhs.z_));
 }
 
 bool are_collinear (const Vector &first, const Vector &second)
@@ -52,7 +52,7 @@ bool are_collinear (const Vector &first, const Vector &second)
 
 bool are_coplanar (const Vector &first, const Vector &second, const Vector &third)
 {
-    return Comparison::are_equal (triple_product (first, second, third), 0.0);
+    return cmp::are_equal (triple_product (first, second, third), 0.0);
 }
 
 } // namespace Geom_Objects

@@ -1,7 +1,7 @@
 #include <algorithm> // for std::max
 #include <cmath>     // for std::abs
 
-namespace Comparison
+namespace cmp
 {
 
 bool are_equal (const double first, const double second, const double zero_diff,
@@ -15,4 +15,4 @@ bool are_equal (const double first, const double second, const double zero_diff,
         return (diff < std::max (std::abs (first), std::abs (second)) * rel_diff);
 }
 
-} // namespace Comparison
+} // namespace cmp

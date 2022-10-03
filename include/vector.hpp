@@ -16,7 +16,7 @@ struct Vector
 
     Vector (Point &pt) : x_ {pt.x_}, y_ {pt.y_}, z_ {pt.z_} {}
 
-    Vector (Point &first, Point &second)
+    Vector (const Point &first, const Point &second)
         : x_ {second.x_ - first.x_}, y_ {second.y_ - first.y_}, z_ {second.z_ - first.z_}
     {}
 
@@ -53,8 +53,7 @@ struct Vector
 
     bool is_zero () const
     {
-        return (Comparison::are_equal (x_, 0.0) && Comparison::are_equal (y_, 0.0) &&
-                Comparison::are_equal (z_, 0.0));
+        return (cmp::are_equal (x_, 0.0) && cmp::are_equal (y_, 0.0) && cmp::are_equal (z_, 0.0));
     }
 };
 
