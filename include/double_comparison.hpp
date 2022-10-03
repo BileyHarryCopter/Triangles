@@ -1,7 +1,7 @@
 #ifndef INCLUDE_DOUBLE_COMPARISON_HPP
 #define INCLUDE_DOUBLE_COMPARISON_HPP
 
-namespace Comparison
+namespace cmp
 {
 
 constexpr double epsilon = 1e-6;

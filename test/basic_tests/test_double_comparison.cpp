@@ -3,7 +3,7 @@
 
 #include "double_comparison.hpp"
 
-using namespace Comparison;
+using namespace cmp;
 
 TEST(Comp_With_Zero, Normalized)
 {

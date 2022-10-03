@@ -16,9 +16,9 @@ struct Point
 
     bool operator== (const Point &other) const
     {
-        return (Comparison::are_equal (x_, other.x_) &&
-                Comparison::are_equal (y_, other.y_) &&
-                Comparison::are_equal (z_, other.z_));
+        return (cmp::are_equal (x_, other.x_) &&
+                cmp::are_equal (y_, other.y_) &&
+                cmp::are_equal (z_, other.z_));
     }
 
     bool operator!= (const Point &other) const { return !(*this == other); }
