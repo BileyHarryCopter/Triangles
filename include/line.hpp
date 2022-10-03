@@ -68,8 +68,8 @@ double distance (const Line &line1, const Line &line2)
         return vector_product ({line1.point_, line2.point_}, line1.drc_vec ()).module () /
                line1.drc_vec ().module ();
 
-    Vector dots_vec {line1.drc_vec (), line2.drc_vec ()};
-    return triple_product (dots_vec, line1.drc_vec (), line2.drc_vec ()).module () /
+    Vector dots_vec {line1.point_, line2.point_};
+    return triple_product (dots_vec, line1.drc_vec (), line2.drc_vec ().module ()) /
            vector_product (line1.drc_vec (), line2.drc_vec ()).module ();
 }
 
