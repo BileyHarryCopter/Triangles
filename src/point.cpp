@@ -1,6 +1,6 @@
-#include <cmath>    // for std::sqrt
-
 #include "point.hpp"
+
+#include <cmath> // for std::sqrt
 
 namespace Geom_Objects
 {
@@ -22,8 +22,8 @@ double distance (const Point &first, const Point &second)
         auto y_diff = first.y_ - second.y_;
         auto z_diff = first.z_ - second.z_;
 
-        return std::sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
+        return std::sqrt (x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
     }
 }
 
-}
+} // namespace Geom_Objects

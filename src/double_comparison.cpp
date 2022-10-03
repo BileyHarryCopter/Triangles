@@ -1,11 +1,10 @@
-#include <algorithm>    // for std::max
-#include <cmath>        // for std::abs
+#include <algorithm> // for std::max
+#include <cmath>     // for std::abs
 
 namespace Comparison
 {
 
-bool are_equal (const double first, const double second,
-                const double zero_diff,
+bool are_equal (const double first, const double second, const double zero_diff,
                 const double rel_diff)
 {
     auto diff = std::abs (first - second);
