@@ -1,5 +1,5 @@
 #pragma once
-#include "double_comprasion.hpp"
+#include "double_comparison.hpp"
 #include "point.hpp"
 #include "vector.hpp"
 
@@ -12,7 +12,7 @@ class Line {
         Line(const Point& p1, const Point& p2): point_{p1}, drc_vec_ {p1.x_ - p2.x_, p1.y_ - p2.y_, p1.z_ - p2.z_}
         {
             #ifndef RELEASE
-            if (are_equal(p1, p2))
+            if (p1 == p2)
                 throw std::invalid_argument{"In constructor of Line(Point, Point): two equal points"};
             #endif 
         }
@@ -26,6 +26,7 @@ class Line {
         }
 
         const Vector& drc_vec() const {return drc_vec_;}
+
         const Vector& drc_vec(const Vector& new_vec)
         {
             #ifndef RELEASE
@@ -35,14 +36,18 @@ class Line {
             drc_vec_ = new_vec;
             return drc_vec_;
         }
+
+        bool operator== (const Line& other) const
+        {
+            if (point_ == other.point_)
+                return are_collinear(drc_vec_, other.drc_vec_);
+            return are_collinear(Vector{point_, other.point_}, drc_vec_);
+        }
+
+        bool operator!= (const Line& other) const {return !(*this == other);}
 };
 
-bool are_parallel(const Line& line1, const Line& line2) {return are_complinear(line1.drc_vec(), line2.drc_vec());}
-
-bool are_coplanar(const Line& line1, const Line& line2, const Line& line3)
-{
-    return are_coplanar(line1.drc_vec(), line2.drc_vec(), line3.drc_vec());
-}
+bool are_parallel(const Line& line1, const Line& line2) {return are_collinear(line1.drc_vec(), line2.drc_vec());}
 
 double distance(const Line& line, const Point& pt)
 {
@@ -62,9 +67,16 @@ double distance(const Line& line1, const Line& line2)
     return triple_product(dots_vec, line1.drc_vec(), line2.drc_vec()).module()/vector_product(line1.drc_vec(), line2.drc_vec()).module();
 }
 
-bool are_intersect(const Line& line1, const Line& line2) {return are_equal(distance(line1, line2), 0);}
+bool are_intersect(const Line& line1, const Line& line2) {return Comparison::are_equal(distance(line1, line2), 0);}
 
-bool is_belong(const Point& pt, const Line& line) {return are_equal(distance(pt, line), 0);}
+bool is_belong(const Point& pt, const Line& line) {return Comparison::are_equal(distance(pt, line), 0);}
 bool is_belong(const Line& line, const Point& pt) {return is_belong(pt, line);}
+
+bool in_plane(const Line& line1, const Line& line2)
+{
+    if (are_parallel(line1, line2))
+        return true;
+    return are_intersect(line1, line2);
+}
 
 }

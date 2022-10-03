@@ -131,4 +131,7 @@ Standard:        Latest
 TabWidth:        4
 UseCRLF:         false
 UseTab:          Never
+<<<<<<< HEAD
 
+=======
+>>>>>>> master
