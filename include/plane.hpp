@@ -5,6 +5,8 @@
 #include "point.hpp"
 #include "vector.hpp"
 
+#include <stdexcept> //  std::invalid_argument
+
 namespace Geom_Objects
 {
 
@@ -16,7 +18,9 @@ class Plane
 
 public:
 
-    Plane (Vector &normal, Point &origin)
+    Plane () { throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"}; }
+
+    Plane (const Point &origin, const Vector &normal)
     {
         if (normal.is_zero ())
             throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"};
@@ -27,6 +31,7 @@ public:
     //  Bad idea to construct a plane by 4 doubles
     Plane (double A, double B, double C, double D)
     {
+        normal_ = {A, B, C};
         //  Three comparisons to not create unnecessery evict as vector
         if (normal_.is_zero ())
             throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"};
@@ -40,7 +45,6 @@ public:
         else
             origin_ = {-D / A, 0, 0};
 
-        normal_ = {A, B, C};
         normal_ *= (1 / normal_.module ());
     }
 
@@ -49,10 +53,17 @@ public:
 };
 
 //  block with Plane and Point
-double distance (const Point &p, const Plane &pl);
+double distance (const Point &p, const Plane &pl)
+{
+    Point origin = pl.origin ();
+    Vector diff  = {p.x_ - origin.x_, p.y_ - origin.y_, p.z_ - origin.z_};
+    double coef  = scalar_product (diff, pl.norm_vec ());
+    diff         = coef * pl.norm_vec ();
+    return diff.module ();
+}
 double distance (const Plane &pl, const Point &p);
 
-bool is_belong (const Point &p, const Plane &pl);
+bool is_belong (const Point &p, const Plane &pl) { return cmp::are_equal (distance (p, pl), 0.0); }
 
 //  block with Plane and Line
 bool is_intersect (const Line &line, const Plane &pl);
