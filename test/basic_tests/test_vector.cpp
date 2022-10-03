@@ -183,3 +183,13 @@ TEST (Vectors, Vector_Product)
     auto product = vector_product (vec_1, vec_1 * 22500.0);
     EXPECT_TRUE (product.is_zero ());
 }
+
+TEST (Vectors, Ctor_From_Points)
+{
+    // Edge case: constructing vector from 2 approximately matching points
+    Point big_ass_pt_1 {100000001};
+    Point big_ass_pt_2 {100000000};
+    Vector vec {big_ass_pt_1, big_ass_pt_2};
+    Vector null {};
+    EXPECT_TRUE (vec == null);
+}

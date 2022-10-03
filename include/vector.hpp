@@ -17,7 +17,9 @@ struct Vector
     Vector (Point &pt) : x_{pt.x_}, y_{pt.y_}, z_{pt.z_} {}
 
     Vector (Point &first, Point &second)
-           : x_{second.x_ - first.x_}, y_{second.y_ - first.y_}, z_{second.z_ - first.z_} {}
+           : x_{cmp::are_equal (first.x_, second.x_) ? 0.0 : second.x_ - first.x_},
+             y_{cmp::are_equal (first.y_, second.y_) ? 0.0 : second.y_ - first.y_},
+             z_{cmp::are_equal (first.z_, second.z_) ? 0.0 : second.z_ - first.z_} {}
 
     bool operator== (const Vector &other) const
     {
