@@ -18,6 +18,6 @@ inline bool are_equal (const double first, const double second,
         return (diff < std::max (std::abs (first), std::abs (second)) * rel_diff);
 }
 
-} // namespace Comparison
+} // namespace cmp
 
 #endif // INCLUDE_DOUBLE_COMPARISON_HPP
