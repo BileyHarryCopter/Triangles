@@ -10,30 +10,42 @@ namespace Geom_Objects
 
 class Plane
 {
-    //  from general form of plane: Ax + By + Cz + D = 0
-    double A_, B_, C_, D_;
+    //  By an origin and normal vector of the plane
+    Vector normal_;
+    Point origin_;
 
 public:
 
-    Plane (double A, double B, double C, double D) : A_ {A}, B_ {B}, C_ {C}, D_ {D}
+    Plane (Vector &normal, Point &origin)
     {
-        //  three comparisons to not create unnecessery evict as vector
-        if (Comparison::are_equal (A, 0.0) && Comparison::are_equal (B, 0.0) &&
-            Comparison::are_equal (C, 0.0))
-            throw std::invalid_argument {
-                "In constructor of Plane(A, B, C, D): zero normal vector\n"};
+        if (normal.is_zero ())
+            throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"};
+        normal_ = normal * (1 / normal.module ());
+        origin_ = origin;
     }
 
-    Plane (const Point &p, const Vector &rhs)
-        : A_ {rhs.x_}, B_ {rhs.y_}, C_ {rhs.z_}, D_ {p.x_ * rhs.x_ + p.y_ * rhs.y_ + p.z_ * rhs.z_}
+    //  Bad idea to construct a plane by 4 doubles
+    Plane (double A, double B, double C, double D)
     {
-        if (rhs.is_zero ())
-            throw std::invalid_argument {
-                "In constuctor of Plane(Vector normal, Point origin): zero normal\n"};
+        //  Three comparisons to not create unnecessery evict as vector
+        if (normal_.is_zero ())
+            throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"};
+        if (cmp::are_equal (A, 0.0))
+        {
+            if (cmp::are_equal (B, 0.0))
+                origin_ = {0, 0, -D / C};
+            else
+                origin_ = {0, -D / B, 0};
+        }
+        else
+            origin_ = {-D / A, 0, 0};
+
+        normal_ = {A, B, C};
+        normal_ *= (1 / normal_.module ());
     }
 
-    Vector norm_vec () const { return Vector norm = {A_, B_, C_}; };
-    Point origin () const { return Point or = {p.x_ * rhs.x_, p.y_ * rhs.y_, p.z_ * rhs.z_}; }
+    Point origin () const { return Point {origin_.x_, origin_.y_, origin_.z_}; };
+    Vector norm_vec () const { return Vector {normal_.x_, normal_.y_, normal_.z_}; };
 };
 
 //  block with Plane and Point
@@ -44,18 +56,16 @@ bool is_belong (const Point &p, const Plane &pl);
 
 //  block with Plane and Line
 bool is_intersect (const Line &line, const Plane &pl);
-bool are_paral (const Plane &pl, const Line &line);
-bool are_paral (const Line &line, const Plane &pl);
+bool are_parallel (const Plane &pl, const Line &line);
+bool are_parallel (const Line &line, const Plane &pl);
 
-bool is_consisted (const Line &line, const Plane &pl);
-
-Point p_intersect (const Line &line, const Plane &pl);
+bool is_contained (const Line &line, const Plane &pl);
 
 double distance (const Plane &pl, const Line &line);
 double distance (const Line &line, const Plane &pl);
 
 //  block with Plane and Plane
-bool are_paral (const Plane &pl1, const Plane &pl2);
+bool are_parallel (const Plane &pl1, const Plane &pl2);
 
 bool are_intersect (const Plane &pl1, const Plane &pl2);
 bool are_equal (const Plane &pl1, const Plane &pl2);
