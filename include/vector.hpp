@@ -136,6 +136,11 @@ inline bool are_coplanar (const Vector &first, const Vector &second, const Vecto
     return Comparison::are_equal (triple_product (first, second, third), 0.0);
 }
 
+inline bool are_orthogonal (const Vector &first, const Vector &second)
+{
+    return Comparison::are_equal (scalar_product (first, second), 0.0);
+}
+
 } // namespace Geom_Objects
 
 #endif // INCLUDE_VECTOR_HPP
