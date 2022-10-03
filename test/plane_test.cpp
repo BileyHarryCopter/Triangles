@@ -1,7 +1,8 @@
-#include <iostream>
 #include "plane.hpp"
 
-int main()
+#include <iostream>
+
+int main ()
 {
     //   checking of default constructor
     Plane plane1 {};
