@@ -2,6 +2,7 @@
 #define INCLUDE_POINT_HPP
 
 #include <iostream>
+#include <cmath> // for std::sqrt
 
 #include "double_comparison.hpp"
 
