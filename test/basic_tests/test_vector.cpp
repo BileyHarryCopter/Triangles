@@ -48,17 +48,32 @@ TEST (Vectors, Addition)
     EXPECT_TRUE (vec_1 + null == vec_1);
 
     EXPECT_TRUE ((vec_1 + vec_2 == Vector {3.0, 5.0, 7.0}));
+
+    /* Edge case: two vectors are approximately opposite *
+     *            but their sum doesn't belong to        *
+     *            epsilon-neighborhood of 0.0            */
+    Vector big_ass_vec_1 = Vector{100000000.0};
+    Vector big_ass_vec_2 = Vector{-100000001.0};
+    EXPECT_TRUE (big_ass_vec_1 + big_ass_vec_2 == null);
 }
 
 TEST (Vectors, Subtraction)
 {
     Vector vec_1 {1.0, 2.0, 3.0};
     Vector vec_2 {2.0, 3.0, 4.0};
+    Vector null {};
 
     EXPECT_FALSE (vec_1 - vec_2 == vec_2 - vec_1);
 
     EXPECT_TRUE ((vec_1 - vec_2 == Vector {-1.0, -1.0, -1.0}));
     EXPECT_TRUE ((vec_2 - vec_1 == Vector {1.0, 1.0, 1.0}));
+
+    /* Edge case: two vectors are approximately equal *
+     *            but their difference doesn't belong *
+     *            to epsilon-neighborhood of 0.0      */
+    Vector big_ass_vec_1 = Vector{100000000.0};
+    Vector big_ass_vec_2 = Vector{100000001.0};
+    EXPECT_TRUE (big_ass_vec_1 - big_ass_vec_2 == null);
 }
 
 TEST (Vectors, Multiplication)
@@ -148,7 +163,7 @@ TEST (Vectors, Scalar_Product)
     Vector vec_9 {0.0000007862, -0.0000094781, 21.7532};
     EXPECT_TRUE (cmp::are_equal (scalar_product (vec_8, vec_9), 1'580'445));
 
-    // Corner case: two vectors are collinear
+    // Edge case: two vectors are collinear
     Vector vec_10 {8583.23098, 14712.30};
     Vector vec_11 {22500.0 * 14712.30, -8583.23098 * 22500.0};
     EXPECT_TRUE (cmp::are_equal (scalar_product (vec_10, vec_11), 0.0));
@@ -163,7 +178,7 @@ TEST (Vectors, Vector_Product)
     EXPECT_TRUE (vector_product (e_1, e_3) == -e_2);
     EXPECT_TRUE (vector_product (e_2, e_3) == e_1);
 
-    // Corner case: two vectors are orthogonal
+    // Edge case: two vectors are orthogonal
     Vector vec_1 {125390.241, 398124.14, 0.14122};
     auto product = vector_product (vec_1, vec_1 * 22500.0);
     EXPECT_TRUE (product.is_zero ());

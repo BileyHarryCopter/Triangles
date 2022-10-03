@@ -30,9 +30,9 @@ struct Vector
 
     Vector &operator+= (const Vector &rhs)
     {
-        x_ += rhs.x_;
-        y_ += rhs.y_;
-        z_ += rhs.z_;
+        x_ = cmp::are_equal (x_, -rhs.x_) ? 0.0 : x_ + rhs.x_;
+        y_ = cmp::are_equal (y_, -rhs.y_) ? 0.0 : y_ + rhs.y_;
+        z_ = cmp::are_equal (z_, -rhs.z_) ? 0.0 : z_ + rhs.z_;
 
         return *this;
     }
@@ -45,9 +45,9 @@ struct Vector
 
     Vector &operator-= (const Vector &rhs)
     {
-        x_ -= rhs.x_;
-        y_ -= rhs.y_;
-        z_ -= rhs.z_;
+        x_ = cmp::are_equal (x_, rhs.x_) ? 0.0 : x_ - rhs.x_;
+        y_ = cmp::are_equal (y_, rhs.y_) ? 0.0 : y_ - rhs.y_;
+        z_ = cmp::are_equal (z_, rhs.z_) ? 0.0 : z_ - rhs.z_;
 
         return *this;
     }
