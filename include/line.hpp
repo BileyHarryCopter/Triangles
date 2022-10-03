@@ -17,7 +17,7 @@ public:
         : point_ {p1}, drc_vec_ {p1.x_ - p2.x_, p1.y_ - p2.y_, p1.z_ - p2.z_}
     {
 #ifndef RELEASE
-        if (are_equal (p1, p2))
+        if (p1 == p2)
             throw std::invalid_argument {"In constructor of Line(Point, Point): two equal points"};
 #endif
     }
@@ -44,7 +44,7 @@ public:
 
 bool are_parallel (const Line &line1, const Line &line2)
 {
-    return are_complinear (line1.drc_vec (), line2.drc_vec ());
+    return are_collinear (line1.drc_vec (), line2.drc_vec ());
 }
 
 bool are_coplanar (const Line &line1, const Line &line2, const Line &line3)
@@ -75,10 +75,13 @@ double distance (const Line &line1, const Line &line2)
 
 bool are_intersect (const Line &line1, const Line &line2)
 {
-    return are_equal (distance (line1, line2), 0);
+    return cmp::are_equal (distance (line1, line2), 0);
 }
 
-bool is_belong (const Point &pt, const Line &line) { return are_equal (distance (pt, line), 0); }
+bool is_belong (const Point &pt, const Line &line)
+{
+    return cmp::are_equal (distance (pt, line), 0);
+}
 bool is_belong (const Line &line, const Point &pt) { return is_belong (pt, line); }
 
 } // namespace Geom_Objects

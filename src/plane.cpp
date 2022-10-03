@@ -60,7 +60,9 @@ double distance (const Plane &pl1, const Plane &pl2)
         throw std::invalid_argument {"Zero vector was given to constructor of Plane\n"};
     if (are_equal (pl1, pl2))
         return 0.0;
-    Vector diff {pl2.origin (), pl1.origin ()};
+    Point p1 = pl1.origin ();
+    Point p2 = pl2.origin ();
+    Vector diff {p2, p1};
     return std::abs (scalar_product (pl1.norm_vec (), diff));
 }
 

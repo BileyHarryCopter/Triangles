@@ -1,5 +1,6 @@
-#include "<gtest/gtest.h>"
 #include "line.hpp"
+
+#include <gtest/gtest.h>
 
 using namespace Geom_Objects;
 
