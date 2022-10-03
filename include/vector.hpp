@@ -94,21 +94,36 @@ inline Vector operator* (const double coeff, const Vector &vec) { return vec * c
 
 inline double scalar_product (const Vector &lhs, const Vector &rhs)
 {
-    return lhs.x_ * rhs.x_ + lhs.y_ * rhs.y_ + lhs.z_ * rhs.z_;
+    auto xx = lhs.x_ * rhs.x_;
+    auto yy = lhs.y_ * rhs.y_;
+    auto zz = lhs.z_ * rhs.z_;
+
+    auto tmp_product = Comparison::are_equal (xx, -yy) ? 0.0 : xx + yy;
+    auto product     = Comparison::are_equal (tmp_product, -zz) ? 0.0 : tmp_product + zz;
+    
+    return product;
 }
 
 inline Vector vector_product (const Vector &lhs, const Vector &rhs)
 {
-    return Vector { lhs.y_ * rhs.z_ - lhs.z_ * rhs.y_,
-                    lhs.z_ * rhs.x_ - lhs.x_ * rhs.z_,
-                    lhs.x_ * rhs.y_ - lhs.y_ * rhs.x_ };
+    auto ly_rz = lhs.y_ * rhs.z_;
+    auto lz_ry = lhs.z_ * rhs.y_;
+    auto product_1 = Comparison::are_equal (ly_rz, lz_ry) ? 0.0 : ly_rz - lz_ry;
+
+    auto lz_rx = lhs.z_ * rhs.x_;
+    auto lx_rz = lhs.x_ * rhs.z_;
+    auto product_2 = Comparison::are_equal (lz_rx, lx_rz) ? 0.0 : lz_rx - lx_rz;
+
+    auto lx_ry = lhs.x_ * rhs.y_;
+    auto ly_rx = lhs.y_ * rhs.x_;
+    auto product_3 = Comparison::are_equal (lx_ry, ly_rx) ? 0.0 : lx_ry - ly_rx;
+
+    return Vector {product_1, product_2, product_3};
 }
 
 inline double triple_product (const Vector &first, const Vector &second, const Vector &third)
 {
-    return first.x_ * (second.y_ * third.z_ - second.z_ * third.y_) -
-           first.y_ * (second.x_ * third.z_ - second.z_ * third.x_) +
-           first.z_ * (second.x_ * third.y_ - second.y_ * third.x_);
+    return scalar_product (first, vector_product (second, third));
 }
 
 inline bool are_collinear (const Vector &first, const Vector &second)
