@@ -6,13 +6,7 @@ namespace cmp
 
 constexpr double epsilon = 1e-6;
 
-<<<<<<< HEAD
-bool are_equal (const double first, const double second, const double zero_diff = epsilon,
-                const double rel_diff = epsilon);
-
-=======
-inline bool are_equal (const double first, const double second,
-                       const double zero_diff = epsilon,
+inline bool are_equal (const double first, const double second, const double zero_diff = epsilon,
                        const double rel_diff = epsilon)
 {
     auto diff = std::abs (first - second);
@@ -23,7 +17,6 @@ inline bool are_equal (const double first, const double second,
         return (diff < std::max (std::abs (first), std::abs (second)) * rel_diff);
 }
 
->>>>>>> origin/ketchupp_point_and_vector
 } // namespace cmp
 
 #endif // INCLUDE_DOUBLE_COMPARISON_HPP

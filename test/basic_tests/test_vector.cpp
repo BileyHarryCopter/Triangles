@@ -1,27 +1,10 @@
-#include "vector.hpp"
-<<<<<<< HEAD
-=======
 #include "double_comparison.hpp"
->>>>>>> origin/ketchupp_point_and_vector
+#include "vector.hpp"
 
 #include <gtest/gtest.h>
 
 using namespace Geom_Objects;
 
-<<<<<<< HEAD
-TEST (Vector_Comparison, first)
-{
-    Vector vec_1 {1.0, 2.0, 3.0};
-    Vector vec_2 {-1.0, 2.0, 3.0};
-
-    EXPECT_EQ (are_equal (vec_1, vec_2), false);
-}
-
-int main (int argc, char **argv)
-{
-    testing::InitGoogleTest (&argc, argv);
-    return RUN_ALL_TESTS ();
-=======
 TEST (Vectors, Equality)
 {
     Vector vec_1 {1.0, 2.0, 3.0};
@@ -57,7 +40,7 @@ TEST (Vectors, Addition)
     Vector vec_1 {1.0, 2.0, 3.0};
     Vector vec_2 {2.0, 3.0, 4.0};
     Vector vec_3 {3.0, 4.0, 5.0};
-    Vector null  {};
+    Vector null {};
 
     EXPECT_TRUE (vec_1 + vec_2 == vec_2 + vec_1);
     EXPECT_TRUE ((vec_1 + vec_2) + vec_3 == vec_1 + (vec_2 + vec_3));
@@ -69,8 +52,8 @@ TEST (Vectors, Addition)
     /* Edge case: two vectors are approximately opposite *
      *            but their sum doesn't belong to        *
      *            epsilon-neighborhood of 0.0            */
-    Vector big_ass_vec_1 = Vector{100000000.0};
-    Vector big_ass_vec_2 = Vector{-100000001.0};
+    Vector big_ass_vec_1 = Vector {100000000.0};
+    Vector big_ass_vec_2 = Vector {-100000001.0};
     EXPECT_TRUE (big_ass_vec_1 + big_ass_vec_2 == null);
 }
 
@@ -88,8 +71,8 @@ TEST (Vectors, Subtraction)
     /* Edge case: two vectors are approximately equal *
      *            but their difference doesn't belong *
      *            to epsilon-neighborhood of 0.0      */
-    Vector big_ass_vec_1 = Vector{100000000.0};
-    Vector big_ass_vec_2 = Vector{100000001.0};
+    Vector big_ass_vec_1 = Vector {100000000.0};
+    Vector big_ass_vec_2 = Vector {100000001.0};
     EXPECT_TRUE (big_ass_vec_1 - big_ass_vec_2 == null);
 }
 
@@ -97,7 +80,7 @@ TEST (Vectors, Multiplication)
 {
     Vector vec_1 {1.0, 2.0, 3.0};
     Vector vec_2 {2.0, 3.0, 4.0};
-    Vector null  {};
+    Vector null {};
     const double num_1 = 4.0;
     const double num_2 = 5.0;
 
@@ -118,7 +101,7 @@ TEST (Vectors, Inversion)
 {
     Vector vec {1.0, 2.0, 3.0};
 
-    EXPECT_TRUE ((-vec == Vector{-1.0, -2.0, -3.0}));
+    EXPECT_TRUE ((-vec == Vector {-1.0, -2.0, -3.0}));
     EXPECT_TRUE (-vec == -1.0 * vec);
 
     EXPECT_TRUE (-(-vec) == vec);
@@ -209,5 +192,4 @@ TEST (Vectors, Ctor_From_Points)
     Vector vec {big_ass_pt_1, big_ass_pt_2};
     Vector null {};
     EXPECT_TRUE (vec == null);
->>>>>>> origin/ketchupp_point_and_vector
 }
