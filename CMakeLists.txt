@@ -14,6 +14,7 @@ set(CMAKE_CXX_STANDARD          20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
+<<<<<<< HEAD
 aux_source_directory(./src BASIC_SRC)
 
 add_library(basic_classes
@@ -23,4 +24,6 @@ target_include_directories(basic_classes
                            PUBLIC ./include)
 
 
+=======
+>>>>>>> origin/ketchupp_point_and_vector
 add_subdirectory(test)

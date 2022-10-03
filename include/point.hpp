@@ -1,6 +1,12 @@
 #ifndef INCLUDE_POINT_HPP
 #define INCLUDE_POINT_HPP
 
+<<<<<<< HEAD
+=======
+#include <iostream>
+#include <cmath> // for std::sqrt
+
+>>>>>>> origin/ketchupp_point_and_vector
 #include "double_comparison.hpp"
 
 #include <iostream>
@@ -10,19 +16,46 @@ namespace Geom_Objects
 
 struct Point
 {
-    double x_;
-    double y_;
-    double z_;
+    double x_, y_, z_;
 
+<<<<<<< HEAD
     Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_ {x}, y_ {y}, z_ {z} {}
+=======
+    Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_{x}, y_{y}, z_{z} {}
+
+    bool operator== (const Point &other) const
+    {
+        return (cmp::are_equal (x_, other.x_) &&
+                cmp::are_equal (y_, other.y_) &&
+                cmp::are_equal (z_, other.z_));
+    }
+
+    bool operator!= (const Point &other) const { return !(*this == other); }
+>>>>>>> origin/ketchupp_point_and_vector
 
     bool is_valid () const { return (x_ == x_ && y_ == y_ && z_ == z_); }
 
     void print () const { std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl; }
 };
 
+<<<<<<< HEAD
 bool are_equal (const Point &first, const Point &second);
 double distance (const Point &first, const Point &second);
+=======
+inline double distance (const Point &first, const Point &second)
+{
+    if (first == second)
+        return 0.0;
+    else
+    {
+        auto x_diff = first.x_ - second.x_;
+        auto y_diff = first.y_ - second.y_;
+        auto z_diff = first.z_ - second.z_;
+
+        return std::sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
+    }
+}
+>>>>>>> origin/ketchupp_point_and_vector
 
 } // namespace Geom_Objects
 
