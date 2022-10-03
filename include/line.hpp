@@ -1,5 +1,5 @@
 #pragma once
-#include "double_comprasion.hpp"
+#include "double_comparision.hpp"
 #include "point.hpp"
 #include "vector.hpp"
 
