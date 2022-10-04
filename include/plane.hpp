@@ -66,21 +66,49 @@ double distance (const Plane &pl, const Point &p);
 bool is_belong (const Point &p, const Plane &pl) { return cmp::are_equal (distance (p, pl), 0.0); }
 
 //  block with Plane and Line
-bool is_intersect (const Line &line, const Plane &pl);
-bool are_parallel (const Plane &pl, const Line &line);
-bool are_parallel (const Line &line, const Plane &pl);
+bool is_intersect (const Line &line, const Plane &pl)
+{
+    return !cmp::are_equal (scalar_product (pl.norm_vec (), line.drc_vec ()), 0.0);
+}
 
-bool is_contained (const Line &line, const Plane &pl);
+bool are_parallel (const Plane &pl, const Line &line) { return !is_intersect (line, pl); }
+bool are_parallel (const Line &line, const Plane &pl) { return are_parallel (pl, line); }
 
-double distance (const Plane &pl, const Line &line);
-double distance (const Line &line, const Plane &pl);
+bool is_belong (const Line &line, const Plane &pl)
+{
+    return is_belong (line.point_, pl) && are_parallel (line, pl);
+}
+
+double distance (const Plane &pl, const Line &line)
+{
+    if (is_intersect (line, pl))
+        throw std::invalid_argument {"No distance between plane and line intersected it\n"};
+    if (is_belong (line, pl))
+        return 0.0;
+    Vector diff {pl.origin (), line.point_};
+    return std::abs (scalar_product (diff, pl.norm_vec ()));
+}
+double distance (const Line &line, const Plane &pl) { return distance (pl, line); }
 
 //  block with Plane and Plane
-bool are_parallel (const Plane &pl1, const Plane &pl2);
+bool are_parallel (const Plane &pl1, const Plane &pl2)
+{
+    return are_collinear (pl1.norm_vec (), pl2.norm_vec ());
+}
+bool are_intersect (const Plane &pl1, const Plane &pl2) { return !are_parallel (pl1, pl2); }
+bool are_equal (const Plane &pl1, const Plane &pl2)
+{
+    return are_parallel (pl1, pl2) && is_belong (pl1.origin (), pl2);
+}
 
-bool are_intersect (const Plane &pl1, const Plane &pl2);
-bool are_equal (const Plane &pl1, const Plane &pl2);
-
-double distance (const Plane &pl1, const Plane &pl2);
+double distance (const Plane &pl1, const Plane &pl2)
+{
+    if (!are_parallel (pl1, pl2))
+        throw std::invalid_argument {"No distance between intersected planes\n"};
+    if (are_equal (pl1, pl2))
+        return 0.0;
+    Vector diff {pl1.origin (), pl2.origin ()};
+    return std::abs (scalar_product (pl1.norm_vec (), diff));
+}
 
 } //  namespace Geom_Objects
