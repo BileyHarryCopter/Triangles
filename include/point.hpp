@@ -1,47 +1,46 @@
 #ifndef INCLUDE_POINT_HPP
 #define INCLUDE_POINT_HPP
 
-#include <cmath>    // for std::sqrt
-#include <iostream>
-
 #include "double_comparison.hpp"
+
+#include <cmath> // for std::sqrt
+#include <iostream>
 
 namespace Geom_Objects
 {
 
 struct Point
 {
-    double x_;
-    double y_;
-    double z_;
+    double x_, y_, z_;
 
-    Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_{x}, y_{y}, z_{z} {}
+    Point (double x = 0.0, double y = 0.0, double z = 0.0) : x_ {x}, y_ {y}, z_ {z} {}
 
-    bool is_equal (const Point &other) const
+    bool operator== (const Point &other) const
     {
-        return (Comparison::is_equal (x_, other.x_) &&
-                Comparison::is_equal (y_, other.y_) &&
-                Comparison::is_equal (z_, other.z_));
+        return (cmp::are_equal (x_, other.x_) && cmp::are_equal (y_, other.y_) &&
+                cmp::are_equal (z_, other.z_));
     }
 
-    double distance (const Point &other) const
-    {
-        if (is_equal (other))
-            return 0.0;
-        else
-        {
-            auto x_diff = x_ - other.x_;
-            auto y_diff = y_ - other.y_;
-            auto z_diff = z_ - other.z_;
-
-            return std::sqrt(x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
-        }
-    }
+    bool operator!= (const Point &other) const { return !(*this == other); }
 
     bool is_valid () const { return (x_ == x_ && y_ == y_ && z_ == z_); }
 
     void print () const { std::cout << "(" << x_ << ", " << y_ << ", " << z_ << ")" << std::endl; }
 };
+
+inline double distance (const Point &first, const Point &second)
+{
+    if (first == second)
+        return 0.0;
+    else
+    {
+        auto x_diff = first.x_ - second.x_;
+        auto y_diff = first.y_ - second.y_;
+        auto z_diff = first.z_ - second.z_;
+
+        return std::sqrt (x_diff * x_diff + y_diff * y_diff + z_diff * z_diff);
+    }
+}
 
 } // namespace Geom_Objects
 

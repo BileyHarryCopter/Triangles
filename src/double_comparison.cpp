@@ -1,11 +1,11 @@
-#include "double_comparison.hpp"
+#include <algorithm> // for std::max
+#include <cmath>     // for std::abs
 
-namespace Comparison
+namespace cmp
 {
 
-bool is_equal (const double first, const double second,
-               const double zero_diff,
-               const double rel_diff)
+bool are_equal (const double first, const double second, const double zero_diff,
+                const double rel_diff)
 {
     auto diff = std::abs (first - second);
 
@@ -15,4 +15,4 @@ bool is_equal (const double first, const double second,
         return (diff < std::max (std::abs (first), std::abs (second)) * rel_diff);
 }
 
-} // namespace Comparison
+} // namespace cmp
