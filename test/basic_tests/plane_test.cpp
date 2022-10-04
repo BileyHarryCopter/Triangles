@@ -40,6 +40,57 @@ TEST (PlaneTest, PlanePoint)
     Point p_out {-1.0, -2.0, 0.0};
 
     EXPECT_TRUE (cmp::are_equal (distance (p, pl), 5.0));
+
     EXPECT_TRUE (is_belong (p_in, pl));
     EXPECT_FALSE (is_belong (p_out, pl));
+}
+
+TEST (PlaneTest, PlaneLine)
+{
+    Plane pl {0.0, 0.0, 1.0, 0.0};
+
+    Point p1 {0.0, 0.0, 0.0};
+    Point p2 {1.0, 1.0, 1.0};
+    Point p3 {1.0, 1.0, 0.0};
+    Point p4 {1.0, 1.0, 5.0};
+    Point p5 {0.0, 0.0, 5.0};
+
+    Line line_inter {p1, p2};
+    Line line_con {p1, p3};
+    Line line_par {p5, p4};
+
+    EXPECT_TRUE (is_intersect (line_inter, pl));
+    EXPECT_FALSE (is_intersect (line_par, pl));
+
+    EXPECT_TRUE (are_parallel (line_con, pl));
+    EXPECT_TRUE (are_parallel (pl, line_con));
+    EXPECT_FALSE (are_parallel (line_inter, pl));
+
+    EXPECT_TRUE (is_belong (line_con, pl));
+    EXPECT_FALSE (is_belong (line_par, pl));
+    EXPECT_FALSE (is_belong (line_inter, pl));
+
+    EXPECT_TRUE (cmp::are_equal (distance (line_par, pl), 5.0));
+    EXPECT_TRUE (cmp::are_equal (distance (line_con, pl), 0.0));
+    EXPECT_THROW ({ distance (line_inter, pl); }, std::invalid_argument);
+}
+
+TEST (PlaneTest, PlanePlane)
+{
+    Plane pl_back {1.0, 0.0, 0.0, 0.0};
+    Plane pl_front {1.0, 0.0, 0.0, -2.0};
+    Plane pl_inter {1.0, 1.0, 0.0, 0.0};
+    Plane pl_inter_2 {1.0, 1.0, 0.0, 0.0};
+
+    EXPECT_TRUE (are_parallel (pl_back, pl_front));
+    EXPECT_FALSE (are_parallel (pl_inter, pl_back));
+
+    EXPECT_TRUE (are_intersect (pl_inter, pl_front));
+
+    EXPECT_FALSE (are_equal (pl_back, pl_inter));
+    EXPECT_TRUE (are_equal (pl_inter, pl_inter_2));
+
+    EXPECT_TRUE (cmp::are_equal (distance (pl_back, pl_front), 2.0));
+    EXPECT_TRUE (cmp::are_equal (distance (pl_inter, pl_inter_2), 0.0));
+    EXPECT_THROW ({ distance (pl_back, pl_inter); }, std::invalid_argument);
 }
